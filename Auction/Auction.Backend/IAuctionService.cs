@@ -14,8 +14,8 @@ namespace Auction.Backend
 
         List<Item> GetItemsByAuction(int auctionId);
         Item GetItemByItemId(int itemId);
-
+        
         List<Bid> GetBidsByItemId(int itemId);
-        Bid CommitToBid(int itemId, int userId);
+        Bid CommitToBid(Bid bid, int itemId);
     }
 }

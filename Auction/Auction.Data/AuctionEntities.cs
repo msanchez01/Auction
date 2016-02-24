@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Auction.Data
 {
@@ -31,8 +32,13 @@ namespace Auction.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Decimal StartingPrice { get; set; }
-        public Decimal Estimate { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public decimal StartingPrice { get; set; }
+        public decimal Estimate { get; set; }
+        public decimal MinimumBidAmount { get; set; }
+        public decimal NextMinimumBid { get; set; }
+        public Bid HighestBid { get; set; }
         public List<Bid> Bids { get; set; }
 
     }
@@ -50,5 +56,7 @@ namespace Auction.Data
         public int Id { get; set; }
         public Decimal CommitToBid { get; set; }
         public int UserId { get; set; } //TODO
+        [NotMapped]
+        public bool IsHighestBid { get; set; }
     }
 }

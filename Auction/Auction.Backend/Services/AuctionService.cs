@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Auction.Data;
 
 namespace Auction.Backend.Services
@@ -49,9 +46,21 @@ namespace Auction.Backend.Services
             return item?.Bids;
         }
 
-        public Bid CommitToBid(int itemId, int userId)
+        public Bid CommitToBid(Bid bid, int itemId)
         {
-            throw new NotImplementedException();
+            var item = _auctionEntities.Items.FirstOrDefault(x => x.Id == itemId);
+            if (item == null) return null; // TODO: Return meaningful message
+
+            _auctionEntities.Bids.Add(bid);
+            item.Bids.Add(bid);
+            
+            if (item.HighestBid == null || item.HighestBid.CommitToBid <= bid.CommitToBid)
+            {
+                item.HighestBid = bid;
+            }
+            _auctionEntities.SaveChanges();
+
+            return bid;
         }
     }
 }
