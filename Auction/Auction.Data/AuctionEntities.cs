@@ -38,6 +38,7 @@ namespace Auction.Data
         public decimal Estimate { get; set; }
         public decimal MinimumBidAmount { get; set; }
         public decimal NextMinimumBid { get; set; }
+        public ItemStatus ItemStatus { get; set; }
         public Bid HighestBid { get; set; }
         public List<Bid> Bids { get; set; }
 
@@ -49,6 +50,12 @@ namespace Auction.Data
         public string Name { get; set; }
         public DateTime AuctionDate { get; set; }
         public List<Item> Items { get; set; }
+    }
+
+    public class ItemStatus
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Bid

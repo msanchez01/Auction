@@ -17,14 +17,17 @@ namespace Auction.Controllers
             this.AuctionService = auctionService;
         }
 
+        public AuctionController() { }
+
         public UserManager<ApplicationUser> UserManager { get; private set; }
 
         private IAuctionService AuctionService;
 
         // GET: api/Auction
-        public IEnumerable<string> Get()
+        public IEnumerable<Data.Auction> Get()
         {
-            return new string[] { "value1", "value2" };
+            var auctions = AuctionService.GetAllAuctions();
+            return auctions;
         }
 
         // GET: api/Auction/5
