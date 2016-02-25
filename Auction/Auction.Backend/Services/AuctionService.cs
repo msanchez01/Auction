@@ -28,6 +28,12 @@ namespace Auction.Backend.Services
             return auction;
         }
 
+        public void CreateAuction(Data.Auction auction)
+        {
+            _auctionEntities.Auctions.Add(auction);
+            _auctionEntities.SaveChanges();
+        }
+
         public List<Item> GetItemsByAuction(int auctionId)
         {
             var auction = _auctionEntities.Auctions.FirstOrDefault(x => x.Id == auctionId);
@@ -40,15 +46,26 @@ namespace Auction.Backend.Services
             return item;
         }
 
+        public void CreateAuctionItem(Item item)
+        {
+            _auctionEntities.Items.Add(item);
+            _auctionEntities.SaveChanges();
+        }
+
         public List<Bid> GetBidsByItemId(int itemId)
         {
             var item = _auctionEntities.Items.FirstOrDefault(x => x.Id == itemId);
             return item?.Bids;
         }
 
-        public Bid CommitToBid(Bid bid, int itemId)
+        public Bid CommitToBid(int auctionId, int itemId, Bid bid)
         {
-            var item = _auctionEntities.Items.FirstOrDefault(x => x.Id == itemId);
+            var auction = _auctionEntities.Auctions.FirstOrDefault(x => x.Id == auctionId);
+            if (auction == null || !auction.AuctionStatus.Name.Equals("In Progress"))
+            {
+                return null;//TODO: Return meaningful message
+            }
+            var item = auction.Items.FirstOrDefault(x => x.Id == itemId);
             if (item == null) return null; // TODO: Return meaningful message
 
             _auctionEntities.Bids.Add(bid);

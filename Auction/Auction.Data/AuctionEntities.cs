@@ -25,6 +25,7 @@ namespace Auction.Data
 
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
+        public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<Bid> Bids { get; set; }
     }
 
@@ -49,7 +50,14 @@ namespace Auction.Data
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime AuctionDate { get; set; }
+        public AuctionStatus AuctionStatus { get; set; }
         public List<Item> Items { get; set; }
+    }
+
+    public class AuctionStatus
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class ItemStatus
